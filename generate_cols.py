@@ -1,22 +1,24 @@
 from random import randint
 
 class Generate_cols():
-    def __init__(self, letters, min_n, max_n, matrix) -> None:
-        self.min_n: int = min_n
-        self.max_n: int = max_n
+    def __init__(self, letters, matrix) -> None:
         self.letters: dict = letters
         self.matrix: list[list[int]] = matrix
 
 
     def execute(self, letter):
         min, max = self.letters.get(letter)
-        for i in range(5):
+        for i in range(len(self.matrix)):
             col = list(self.letters.keys()).index(letter)
-            number = randint(min, max)
 
-            while number in self.matrix[col]:
+            if(col == 2 and i == 2):
+                self.matrix[col].append("*")
+            else:
                 number = randint(min, max)
 
-            self.matrix[col].append(number)
-            
+                while number in self.matrix[col]:
+                    number = randint(min, max)
+
+                self.matrix[col].append(number)
+                
     

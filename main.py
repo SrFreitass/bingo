@@ -26,7 +26,7 @@ def main():
     for x in range(5):
         matrix.append([])
     gen_nums = Generate_num(drawn=drawn, min_n=min_n, max_n=max_n)
-    gen_cols = Generate_cols(min_n=min_n, max_n=max_n, letters=letters, matrix=matrix)
+    gen_cols = Generate_cols(letters=letters, matrix=matrix)
 
     for letter in letters:
         gen_cols.execute(letter=letter)
