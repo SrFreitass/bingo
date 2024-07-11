@@ -9,7 +9,7 @@
 # root.mainloop()
 from generate_cols import Generate_cols
 from generate_nums import Generate_num
-from tkinter_interface import Window
+from gui.tkinter_interface import Window
 
 def main():
     min_n = 1
@@ -23,6 +23,7 @@ def main():
     }
     drawn=[]
     matrix=[]
+
     for x in range(5):
         matrix.append([])
     gen_nums = Generate_num(drawn=drawn, min_n=min_n, max_n=max_n)
