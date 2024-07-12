@@ -1,39 +1,35 @@
 import socket
 from json import *
-from generate_cols import Generate_cols
+from core.table_bingo import Table_Bingo
 
 class Socket_server:
-    def execute(addr, port, matrix):
+    def execute(addr, port):
         clients = []
-        print("New Thread")
+        print("Log: New Thread")
         server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        letters = {
+            "B": [1, 15],
+            "I": [16, 30],
+            "N": [31, 45],
+            "G": [46, 60],
+            "O": [61, 75],
+        }
 
-        
+        new_table = Table_Bingo(letters)
+
         try:
             server.bind((addr, int(port)))
             server.listen()
-
-            letters = {
-                "B": [1, 15],
-                "I": [16, 30],
-                "N": [31, 45],
-                "G": [46, 60],
-                "O": [61, 75],
-            }
-
-            gen_cols = Generate_cols(letters=letters, matrix=matrix)
-
-            for x in letters.keys():
-                gen_cols.execute(x)
-
         except:
             print("Ocorreu um erro na inicialização")
 
         while True:
             con, addr = server.accept()
-            clients.append(con)
-            print("Nova conexão")
-            con.send(dumps(matrix).encode())
+            user_table = new_table.execute()
+
+            print("LOG: Nova conexão")
+            clients.append((con, user_table))
+            con.send(dumps(user_table).encode())
             
             # while True:
             #     msg = con.recv(1024)

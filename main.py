@@ -7,7 +7,7 @@
 # mainframe = ttk.Frame(root, padding="3 3 12 12")
 
 # root.mainloop()
-from generate_cols import Generate_cols
+
 from generate_nums import Generate_num
 from gui.tkinter_interface import Window
 
@@ -27,15 +27,9 @@ def main():
     for x in range(5):
         matrix.append([])
     gen_nums = Generate_num(drawn=drawn, min_n=min_n, max_n=max_n)
-    gen_cols = Generate_cols(letters=letters, matrix=matrix)
-
-    for letter in letters:
-        gen_cols.execute(letter=letter)
 
     window = Window(matrix, gen_nums.execute, name="Bingo do Nanael", res="650x500")
     window.execute()
-    
-    # gen_nums.execute(min_n=min_n, max_n=max_n, drawn=drawn)
 
 if __name__ == "__main__":
     main()
