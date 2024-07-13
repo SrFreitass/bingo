@@ -5,15 +5,15 @@ from server.app import Socket_server
 from generate_nums import Generate_num
 from json import *
 import sqlite3
+
 class Admin_bingo:
     def mount(window: Tk, res: str = "560x400"):
         w, h = res.split("x")
         drawn = []
         nums = Generate_num(drawn=drawn, min_n=1, max_n=75)
+       
         db = sqlite3.connect("./db/server.db")
         cur = db.cursor()
-        cur.execute("DELETE FROM draw_numbers")
-
         def draw_numbers():
             cur.execute("SELECT * FROM draw_numbers")
             last_nums = cur.fetchall()

@@ -1,7 +1,7 @@
 import socket
 from json import *
 from core.table_bingo import Table_Bingo
-
+import time
 class Socket_server:
     def execute(addr, port):
         clients = []
@@ -30,7 +30,19 @@ class Socket_server:
             print("LOG: Nova conexão")
             clients.append((con, user_table))
             con.send(dumps(user_table).encode())
-            
+
+            # while True:
+            #     time.sleep(0.8)
+            #     try:
+            #         con.send(dumps('{"hello": "world"}').encode())
+            #         db.execute("SELECT * FROM draw_numbers")
+            #         print(cur.fetchall(), "blá")
+            #     except KeyError:
+            #         print(KeyError)
+            #         print("OCORREU UM ERRO!")
+            # while True:
+            #     time.sleep(0.7)
+            #     con.send(dumps('{ "hello": "world" }').encode())
             # while True:
             #     msg = con.recv(1024)
             #     if not msg: break

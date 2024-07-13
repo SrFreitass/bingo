@@ -1,6 +1,6 @@
 from tkinter import *
 import threading
-from server.app import Socket_server
+from client.app import Socket_client
 from gui.admin_bingo import Admin_bingo
 
 class Staff_page():
@@ -15,7 +15,7 @@ class Staff_page():
             add = addr.split(":")
             print(add)
 
-            thread = threading.Thread(target=Socket_server.execute, args=(add[0], add[1]))
+            thread = threading.Thread(target=Socket_client.execute, args=(add[0], add[1]))
             thread.start()
 
             for x in components:
