@@ -43,11 +43,11 @@ class Socket_server:
             # while True:
             #     time.sleep(0.7)
             #     con.send(dumps('{ "hello": "world" }').encode())
-            # while True:
-            #     msg = con.recv(1024)
-            #     if not msg: break
-            #     print(con, msg)
-            # con.close()
+            while True:
+                msg = con.recv(2048)
+                if not msg: break
+                print(con, msg)
+            con.close()
 
 
         
