@@ -25,14 +25,16 @@ class Admin_bingo:
                 num = nums.execute()
                 circle = Canvas(bd=0, highlightthickness=0, width=100, height=100, bg="orange", borderwidth=2)
                 circle.create_oval(15, 15, 80, 80, fill="blue", outline="white")
-                circle.place(x=int(w)/2-10, y=(int(h)/2)+100)
                 num_label = Label(window, text=num, font=("Comic Sans MS", 22, "bold"), bg="blue", fg="white")
-                num_label.place(x=int(w)/2 + 18 if num > 10 else int(w)/2 + 25, y=(int(h)/2)+135)
+                num_label = Label(window, text=num, font=("Comic Sans MS", 22, "bold"), bg="blue", fg="white")
+
+                circle.place(relx=0.5, rely=0.7, anchor="center")
+                num_label.place(relx=0.49, rely=0.69, anchor="center")    
                 # SQL INJECTION :)
                 cur.execute(f"INSERT INTO draw_numbers VALUES ({num})")
 
         text = Label(window, text="Utimo número sorteado", font=("Arial", 18), bg="#ffb12b")
-        text.place(x=int(w)/2-80, y=(int(h)/2)+60)
+        text.place(relx=0.5, rely=0.5, anchor="center")
 
         bt = Button(window, text="Sortear", font=("Arial", 18), command=lambda: draw_numbers(), bg="#ffb12b")
-        bt.place(x=int(w)/2-14, y=(int(h)/2)+220)
+        bt.place(relx=0.5, rely=0.9, anchor="center")

@@ -7,15 +7,20 @@ class Socket_client:
     def execute(addr: str, port: int):
         try:
             client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
-            client_socket.connect((addr, int(port)))  
+            client_socket.connect((addr, int(port)))
+            wrote = False  
             
             while True:
                 try:
                     msg = client_socket.recv(2048).decode()
                     print(msg)
-                    local_db = open("db/matrix.json", "w")
-                    local_db.write(msg)
-                    local_db.close()
+                    if not wrote:
+                        local_db = open("db/matrix.json", "w")
+                        local_db.write(msg)
+                        local_db.close()
+                        wrote = True
+                    else:
+                        print("Não precisamos mais escrever a matriz")
                 except KeyError:
                     print(KeyError)
                     print("Ocorreu um erro!")
