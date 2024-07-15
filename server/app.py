@@ -2,6 +2,7 @@ import socket
 from json import *
 from core.table_bingo import Table_Bingo
 import time
+import threading
 class Socket_server:
     def execute(addr, port):
         clients = []
@@ -28,27 +29,23 @@ class Socket_server:
             user_table = new_table.execute()
 
             print("LOG: Nova conexão")
-            clients.append((con, user_table))
+            clients.append([con, user_table])
             con.send(dumps(user_table).encode())
 
-            # while True:
-            #     time.sleep(0.8)
-            #     try:
-            #         con.send(dumps('{"hello": "world"}').encode())
-            #         db.execute("SELECT * FROM draw_numbers")
-            #         print(cur.fetchall(), "blá")
-            #     except KeyError:
-            #         print(KeyError)
-            #         print("OCORREU UM ERRO!")
-            # while True:
-            #     time.sleep(0.7)
-            #     con.send(dumps('{ "hello": "world" }').encode())
-            while True:
-                msg = con.recv(2048)
-                if not msg: break
-                print(con, msg)
-            con.close()
+            thread = threading.Thread(target=receiveMessage, args=[con, clients])
+            thread.start()
 
 
-        
+def receiveMessage(client, clients):
+    print(client, client)
+    while True:
+        try:
+            msg = client.recv(2048).decode()
+            print("MENSAGEM DOS CABAS", msg)
+            for c in clients:
+                c[0].send(msg.encode())
+            print(client, msg)
+        except:
+            client.close()
+    client.close()
 

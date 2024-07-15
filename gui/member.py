@@ -1,6 +1,6 @@
 from tkinter import *
 import threading
-from client.app import Socket_client
+from client.member import Socket_member
 from gui.member_table import Member_table
 
 class Member_page:
@@ -13,7 +13,7 @@ class Member_page:
         def connection(addr: str, components: list):
             add = addr.split(":")
 
-            thread = threading.Thread(target=Socket_client.execute, args=(add[0], add[1]))
+            thread = threading.Thread(target=Socket_member.execute, args=(add[0], add[1]))
             thread.start()
             for x in components:
                 x.destroy()

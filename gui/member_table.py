@@ -7,14 +7,14 @@ class Member_table:
     def mount(window: Tk, res: str = "560x400"):
         w, h = res.split("x")
         
-        last_modified = os.path.getmtime("db\matrix.json")
+        last_modified = os.path.getmtime("./db/matrix.json")
         while True:
-            current_modified = os.path.getmtime("db\matrix.json")
+            current_modified = os.path.getmtime("./db/matrix.json")
             if current_modified != last_modified:
                 break
             time.sleep(0.7)
         
-        matrix_json = open("db\matrix.json")
+        matrix_json = open("./db/matrix.json")
         matrix = loads(matrix_json.read())
         matrix_json.close()
         length = len(matrix)

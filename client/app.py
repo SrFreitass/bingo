@@ -16,12 +16,19 @@ class Socket_client:
             wrote = False  
             
             while True:
-                time.sleep(1)
-                try:
-                    draw_numbers_json = open("./db/draw_numbers.json")
-                    client_socket.sendall(draw_numbers_json.read().encode())
-                    draw_numbers_json.close()
-                    # msg = client_socket.recv(2048).decode()
+                # time.sleep(1)
+                try:    
+                    while True:
+                        numbers_json = open("./db/draw_numbers.json")
+                        client_socket.send(numbers_json.read().encode())
+                        numbers_json.close()
+                        time.sleep(1)
+                    # draw_numbers_json = open("./db/draw_numbers.json")
+                    # nums = draw_numbers_json.read()
+                    # print(nums.encode(), "nuuuums")
+                    # client_socket.send(nums.encode())
+                    # draw_numbers_json.close()
+                
                     # while True:
                         
                     # if not wrote:
@@ -32,9 +39,11 @@ class Socket_client:
                     # else:
                     #     print("Não precisamos mais escrever a matriz")
                 except KeyError:
+                    client_socket.close()
                     print(KeyError, "OCORREU UM ERRO!")
                     # print("Ocorreu um erro!")
         except KeyError as e:
             print(e)
             print("Ocorreu um erro ao conectar!\n")
+            client_socket.close()
 
