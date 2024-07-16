@@ -2,11 +2,11 @@ from tkinter import *
 from json import *
 import os
 import time
+import time
 
 class Member_table:
     def mount(window: Tk, res: str = "560x400"):
         w, h = res.split("x")
-        
         last_modified = os.path.getmtime("./db/matrix.json")
         while True:
             current_modified = os.path.getmtime("./db/matrix.json")
@@ -30,11 +30,24 @@ class Member_table:
             column=x
             for y in range(length):
                 text = Label(window, text=matrix[x][y], relief="solid", width=4, pady=5, font=("Comic Sans MS", 30), bg="gray", fg="white")
-                
                 text.grid(row=y+2, column=column+2, padx=14, pady=1)
             
         text = Label(window, text="Ultimo número sorteado: ", font=("Comic Sans MS", 12))
         text.place(x=17, y=450)
+        # mounted = True
+
+        # while mounted and True:
+        #     print("Verificando novos números!")
+        #     #    draw_numbers_current = open("./client/database/draw_numbers.json")
+        #     #    if load(draw_numbers_last) != load(draw_numbers_current):
+        #     #        current: list[int] = load(draw_numbers_current)
+                    
+        #     #        if current[-1] >= 1 and current[-1] <= 15:
+        #     #            if current[-1] in matrix[0]:
+        #     #                print("MARCA NÚMERO UM!")
+        #     #    draw_numbers_last.close()
+        #     #    draw_numbers_last =  open("./client/database/draw_numbers.json")
+        #     time.sleep(1)
 
         # def callback():
         #     num = gen_num()

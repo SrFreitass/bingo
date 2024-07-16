@@ -12,6 +12,9 @@ class Socket_member:
             client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
             client_socket.connect((addr, int(port)))
             wrote = False  
+            draw_numbers_w = open("./client/database/draw_numbers.json", "w")
+            draw_numbers_w.write("[]")
+            draw_numbers_w.close()
             while True:
                 try:
                     msg = client_socket.recv(2048).decode()
@@ -21,8 +24,14 @@ class Socket_member:
                         local_db.close()
                         wrote = True
                     else:
+                        draw_numbers = open("./client/database/draw_numbers.json")
+                        if load(draw_numbers) != msg:
+                            draw_numbers_w = open("./client/database/draw_numbers.json", "w")
+                            draw_numbers_w.write(msg)
+                            draw_numbers_w.close()
                         print(msg)
-                        print("Não precisamos mais escrever a matriz")
+                        draw_numbers.close()
+
                 except KeyError:
                     print(KeyError, "OCORREU UM ERRO!")
         except KeyError as e:

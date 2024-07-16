@@ -11,6 +11,9 @@ class Socket_client:
         try:
             client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
             client_socket.connect((addr, int(port)))
+            numbers_json_w = open("./db/draw_numbers.json", "w")
+            numbers_json_w.write("[]")
+            numbers_json_w.close()
             # db = sqlite3.connect("./db/server.db")
             # cur = db.cursor()
             wrote = False  
