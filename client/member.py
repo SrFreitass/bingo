@@ -31,7 +31,6 @@ class Socket_member:
                             draw_numbers_w.close()
                         print(msg)
                         draw_numbers.close()
-
                 except KeyError:
                     print(KeyError, "OCORREU UM ERRO!")
         except KeyError as e:

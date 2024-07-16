@@ -21,52 +21,34 @@ class Member_table:
 
         count = 0
 
+        def mark_callback(event:Event):
+            draw_numbers_json = open("./client/database/draw_numbers.json")
+            draw_numbers = load(draw_numbers_json)
+            draw_numbers_json.close()
+
+            #COLUMN, ROW
+            y, x = event.widget.winfo_name().split(":")
+
+            
+
+
+            if event.widget["text"] in draw_numbers:
+                event.widget.config(bg="red")
+            else:
+                print("Impossível marcar número não sorteado!")
+
+
         for x in ["B", "I", "N", "G", "O"]:
-            text = Label(window, text=x,font=("Comic Sans MS", 30, "bold"), borderwidth=1, width=4, bg="orange", fg="white")
+            text = Label(window, text=x,font=("Comic Sans MS", 30, "bold"), borderwidth=1,width=4,bg="orange", fg="white")
             text.grid(row=1, column=count+2, padx=14,pady=10)
             count+=1
 
         for x in range(length):
             column=x
             for y in range(length):
-                text = Label(window, text=matrix[x][y], relief="solid", width=4, pady=5, font=("Comic Sans MS", 30), bg="gray", fg="white")
-                text.grid(row=y+2, column=column+2, padx=14, pady=1)
+                item = Label(window, text=matrix[x][y], relief="solid",width=4, pady=5, name=f"{y}:{x}",font=("Comic Sans MS", 30), bg="gray", fg="white")
+                item.bind("<Button-1>", mark_callback)
+                item.grid(row=y+2, column=column+2, padx=14, pady=1)
             
         text = Label(window, text="Ultimo número sorteado: ", font=("Comic Sans MS", 12))
         text.place(x=17, y=450)
-        # mounted = True
-
-        # while mounted and True:
-        #     print("Verificando novos números!")
-        #     #    draw_numbers_current = open("./client/database/draw_numbers.json")
-        #     #    if load(draw_numbers_last) != load(draw_numbers_current):
-        #     #        current: list[int] = load(draw_numbers_current)
-                    
-        #     #        if current[-1] >= 1 and current[-1] <= 15:
-        #     #            if current[-1] in matrix[0]:
-        #     #                print("MARCA NÚMERO UM!")
-        #     #    draw_numbers_last.close()
-        #     #    draw_numbers_last =  open("./client/database/draw_numbers.json")
-        #     time.sleep(1)
-
-        # def callback():
-        #     num = gen_num()
-        #     circle = Canvas()
-        #     circle.create_oval(10, 10, 80, 80, outline="white", fill="blue", width=2)
-        #     circle.place(x=280, y=350)
-        #     num_text = Label(window, text=num, font=("Arial", 16), bg="blue", fg="#ffffff")
-        #     num_text.place(x=312 if num > 10 else 319, y=380)
-            
-        #     for x in range(length):
-        #         column=x
-        #         for y in range(length):
-        #             if matrix[x][y] == num or matrix[x][y] == "O":
-        #                 matrix[x][y] = "O"
-        #                 circle = Canvas(window, width=35, height=35, borderwidth=0, highlightthickness=0,bg="red")
-        #                 circle.grid(row=y+1, column=column, padx=1)    
-            
-
-
-
-        # button = Button(window, text="Sortear", command=callback, font=("Arial", 18))
-        # button.place(x=40, y=375)
