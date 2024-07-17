@@ -42,3 +42,6 @@ class Admin_bingo:
 
         bt = Button(window, text="Sortear", font=("Arial", 18), command=lambda: draw_numbers(), bg="#ffb12b")
         bt.place(relx=0.5, rely=0.9, anchor="center")
+
+        bt_reset = Button(window, text="Resetar números", font=("Arial", 18), command=lambda: draw_numbers(), bg="#ffb12b")
+        bt_reset.place(relx=0.5, rely=0.98, anchor="center")

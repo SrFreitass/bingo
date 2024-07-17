@@ -37,13 +37,21 @@ class Socket_server:
 
 
 def receiveMessage(client, clients):
-    print(client, client)
     while True:
         try:
-            msg = client.recv(2048).decode()
-            print("MENSAGEM DOS CABAS", msg)
+            msg = client.recv(2048)
+            print("MENSAGEM DOS CABAS", msg.decode())
+
+            try:
+                msg_json: dict | list[int] = loads(msg.decode())
+                if type(msg_json) == "dict" and msg_json.get("win"):
+                    print(msg_json.get("name"))
+                    print("GANHOU!")
+            except:
+                print("LOG: OCORREU UM ERRO")
+    
             for c in clients:
-                c[0].send(msg.encode())
+                c[0].send(msg)
             print(client, msg)
         except:
             client.close()

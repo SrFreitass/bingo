@@ -15,6 +15,7 @@ class Socket_member:
             draw_numbers_w = open("./client/database/draw_numbers.json", "w")
             draw_numbers_w.write("[]")
             draw_numbers_w.close()
+            
             while True:
                 try:
                     msg = client_socket.recv(2048).decode()
@@ -24,13 +25,22 @@ class Socket_member:
                         local_db.close()
                         wrote = True
                     else:
-                        draw_numbers = open("./client/database/draw_numbers.json")
-                        if load(draw_numbers) != msg:
+                        draw_numbers_json = open("./client/database/draw_numbers.json")
+                        draw_numbers: list[int] = load(draw_numbers_json)
+
+                        if draw_numbers != msg:
                             draw_numbers_w = open("./client/database/draw_numbers.json", "w")
                             draw_numbers_w.write(msg)
                             draw_numbers_w.close()
-                        print(msg)
-                        draw_numbers.close()
+
+                        if draw_numbers != msg and len(draw_numbers) >= 5:
+                            status_json = open("./client/database/status.json")
+                            status: dict = load(status_json)
+
+                            if status.get("status") == "win":       
+                                client_socket.send(dumps({ "name": "Teste", "win": True, "draw_numbers": draw_numbers}).encode())
+            
+                        draw_numbers_json.close()
                 except KeyError:
                     print(KeyError, "OCORREU UM ERRO!")
         except KeyError as e:

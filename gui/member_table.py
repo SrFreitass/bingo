@@ -3,6 +3,8 @@ from json import *
 import os
 import time
 import time
+import tkinter
+import tkinter.messagebox
 
 class Member_table:
     def mount(window: Tk, res: str = "560x400"):
@@ -15,7 +17,7 @@ class Member_table:
             time.sleep(0.7)
         
         matrix_json = open("./db/matrix.json")
-        matrix = loads(matrix_json.read())
+        matrix: list[list[int]] = loads(matrix_json.read())
         matrix_json.close()
         length = len(matrix)
 
@@ -29,13 +31,32 @@ class Member_table:
             #COLUMN, ROW
             y, x = event.widget.winfo_name().split(":")
 
-            
-
+            matrix[int(x)][int(y)] = "x"  
 
             if event.widget["text"] in draw_numbers:
                 event.widget.config(bg="red")
+
+                k = {}
+                for col in matrix:
+                    j = 0
+
+                    for l in range(len(matrix)):
+                        if not k.get(str(l)):
+                            k[str(l)]=0 
+
+                        if col[l] == "x" or col[l] == "*":
+                            k[str(l)]+=1
+
+                    for item_col in col:
+                            if item_col == "x" or item_col == "*":
+                                j+=1
+
+                    if j == 5 or k["0"] == 5 or k["1"] == 5 or k["2"] == 5 or k["3"] == 5 or k["4"] == 5:
+                        print("GANHOU!")
+                        tkinter.messagebox.showinfo("Parabéns!", "Você ganhou o bingo!")    
+                        break
             else:
-                print("Impossível marcar número não sorteado!")
+                tkinter.messagebox.showerror("ERRO!", "Impossível marcar um número que não foi sorteado!")
 
 
         for x in ["B", "I", "N", "G", "O"]:
