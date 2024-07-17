@@ -1,11 +1,9 @@
 import socket
 import tkinter as tk
 from tkinter import *
-import threading
-import json
-import sqlite3
-import time
 from json import *
+import tkinter.messagebox
+
 class Socket_member:
     def execute(addr: str, port: int):
         try:
@@ -32,18 +30,10 @@ class Socket_member:
                             draw_numbers_w = open("./client/database/draw_numbers.json", "w")
                             draw_numbers_w.write(msg)
                             draw_numbers_w.close()
-
-                        if draw_numbers != msg and len(draw_numbers) >= 5:
-                            status_json = open("./client/database/status.json")
-                            status: dict = load(status_json)
-
-                            if status.get("status") == "win":       
-                                client_socket.send(dumps({ "name": "Teste", "win": True, "draw_numbers": draw_numbers}).encode())
-            
                         draw_numbers_json.close()
                 except KeyError:
-                    print(KeyError, "OCORREU UM ERRO!")
+                    print(KeyError, "err")
         except KeyError as e:
-            print(e)
+            tkinter.messagebox.showerror("Servidor indisponível!", "O servidor que tentou conectar não existe ou está indisponível")
             print("Ocorreu um erro ao conectar!\n")
 

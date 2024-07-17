@@ -3,6 +3,7 @@ import threading
 from server.app import Socket_server
 from gui.server_bingo import Server_bingo
 import socket
+import gui.p_login
 
 class Server:
     def mount(window: Tk,  res: str = "560x400"):
@@ -27,7 +28,14 @@ class Server:
                 if(x):
                     x.destroy()
 
-            Server_bingo.mount(window, res)
+        def back(components: list):
+            for x in components:
+                x.destroy()
+    
+            gui.p_login.Login.mount(window)
 
-        bt = Button(window, text="Iniciar", font=("Arial", 18), command=lambda: initialize(f"{hostname}:8080", [bt, url, text]), bg="#ffb12b")
+        bt = Button(window, text="Iniciar", font=("Arial", 18), command=lambda: initialize(f"{hostname}:8080", [bt]), bg="#ffb12b")
         bt.place(relx=.5, rely=.75, anchor="center")
+        
+        bt_back = Button(window, width=12, text="< Voltar >", font= ("Arial", 18), command=lambda: back([text, url, bt, bt_back]))
+        bt_back.place(relx=0.5, rely=0.89, anchor=CENTER)
