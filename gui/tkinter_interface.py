@@ -4,7 +4,9 @@ from server.app import Socket_server
 from client.app import Socket_client
 from gui.menu import Login
 from customtkinter import *
+import customtkinter
 
+customtkinter.set_appearance_mode("dark")
 
 class Window():
     def __init__(self, matrix: list[list[int]], gen_num, name: str, res: str = "560x400") -> None:
@@ -18,7 +20,7 @@ class Window():
     def execute(self):
         window = CTk()
         
-        window.title(self.name) 
+        window.title(self.name)     
         window.geometry(self.res)
         window.resizable(False, False)
 

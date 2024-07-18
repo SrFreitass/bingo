@@ -2,6 +2,7 @@ from customtkinter import *
 from gui.member import Member_page
 from gui.staff import Staff_page
 from gui.server import Server
+from PIL import Image, ImageTk
 
 
 class Login:
@@ -9,18 +10,21 @@ class Login:
     def mount(window: CTk, res: str = "560x400"):
         w, h = res.split("x")
 
+        logo = CTkImage(Image.open("./gui/assets/images/logo.png"), size=(300, 150))
+        label_logo = CTkLabel(window, text="",image=logo)
+        label_logo.place(relx=0.5, rely=0.3, anchor=CENTER)
+
         def option_callback(type: str, components: list[CTkButton]):
             # Desmount
             for x in components: x.destroy()
 
             if type == "PAR":
-                Member_page.mount(window=window)
+                Member_page.mount(window=window, logo=label_logo)
             elif type == "ORG":
                 Staff_page.mount(window=window)
             elif type == "SER":
                 Server.mount(window)
                 
-
         # background = PhotoImage(file="./gui/assets/images/bg.png")
         # bg_image = Label(window, image=background)
         # bg_image.img = background

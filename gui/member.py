@@ -6,7 +6,7 @@ import gui.menu
 from customtkinter import *
 import customtkinter
 class Member_page:
-    def mount(window: CTk, res: str = "560x400"):
+    def mount(window: CTk, res: str = "560x400", logo: CTkLabel = None):
         w, h = res.split("x")
 
         def connection(addr: str, components: list, username: str):
@@ -17,7 +17,7 @@ class Member_page:
                 for x in components:
                     x.destroy()
                 
-                Member_table.mount(window, name=username)
+                Member_table.mount(window, name=username, logo=logo)
             except KeyError as e:
                 tkinter.messagebox.showerror("Erro ao conectar!", "Houve um erro ao tentar conectar do servidor!")
 

@@ -22,7 +22,7 @@ class Admin_bingo:
 
 
             if(len(last_nums) >= 75):
-                print("Para que vou cagar")
+                print("Limite")
                 db_w.write("[]")
                 db_w.close()
             else:

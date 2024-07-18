@@ -5,10 +5,16 @@ import time
 import time
 import tkinter
 import tkinter.messagebox
+from customtkinter import *
 
 class Member_table:
-    def mount(window: Tk, res: str = "560x400", name: str = "user"):
+    def mount(window: Tk, res: str = "560x400", name: str = "user", logo: CTkLabel = None):
         w, h = res.split("x")
+
+        if logo:
+            logo.destroy()
+        
+
         last_modified = os.path.getmtime("./client/database/matrix.json")
         while True:
             current_modified = os.path.getmtime("./client/database/matrix.json")
@@ -31,7 +37,7 @@ class Member_table:
             #COLUMN, ROW
             y, x = event.widget.winfo_name().split(":")
 
-            matrix[int(x)][int(y)] = "x"  
+            matrix[int(y)][int(x)] = "x"  
 
             if event.widget["text"] in draw_numbers:
                 event.widget.config(bg="red")
@@ -40,18 +46,27 @@ class Member_table:
                 for col in matrix:
                     j = 0
 
-                    for l in range(len(matrix)):
-                        if not k.get(str(l)):
-                            k[str(l)]=0 
+                    for r in range(len(matrix)):
+                        if k.get(str(r)):
+                            k[str(r)]+=1
+                        else:
+                            k[str(r)]=0
 
-                        if col[l] == "x" or col[l] == "*":
-                            k[str(l)]+=1
+                    # for l in range(len(matrix)):
+                    #     if not k.get(str(l)):
+                    #         k[str(l)]=0 
+
+                    #     if col[l] == "x" or col[l] == "*":
+                    #         k[str(l)]+=1
 
                     for item_col in col:
+                            print(item_col)
                             if item_col == "x" or item_col == "*":
                                 j+=1
 
-                    if j == 5 or k["0"] == 5 or k["1"] == 5 or k["2"] == 5 or k["3"] == 5 or k["4"] == 5:
+                    print(k, j)
+
+                    if j == 5  or k["0"] == 5 or k["1"] == 5 or k["2"] == 5 or k["3"] == 5 or k["4"] == 5:
                         print("GANHOU!")
                         status = open("./client/database/status.json", "w")
                         a = {

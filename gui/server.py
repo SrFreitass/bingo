@@ -30,6 +30,10 @@ class Server:
             for x in components:
                 if(x):
                     x.destroy()
+            
+            bt_exit = CTkButton(window, text="Fechar", font= ("Arial", 20), command=lambda: window.quit())
+            bt_exit.place(relx=0.5, rely=0.82, anchor=CENTER)
+
 
         def back(components: list):
             for x in components:
@@ -37,8 +41,8 @@ class Server:
     
             gui.menu.Login.mount(window)
 
-        bt = CTkButton(window, text="Iniciar", font=("Arial", 18), command=lambda: initialize(f"{hostname}:8080", [bt]))
+        bt = CTkButton(window, text="Iniciar", font=("Arial", 18), command=lambda: initialize(f"{hostname}:8080", [bt, bt_back]))
         bt.place(relx=.5, rely=.75, anchor="center")
-        
-        bt_back = CTkButton(window, width=12, text="Voltar", command=lambda: back([text, url, bt, bt_back]))
+    
+        bt_back = CTkButton(window, text="Voltar", font= ("Arial", 20), command=lambda: back([text, url, bt, bt_back]))
         bt_back.place(relx=0.5, rely=0.89, anchor=CENTER)
