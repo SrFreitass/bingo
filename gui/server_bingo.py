@@ -12,7 +12,7 @@ class Server_bingo:
         drawn = []
         num = 1
        
-        circle = Canvas(bd=0, highlightthickness=0, width=100, height=100, bg="orange", borderwidth=2)
+        circle = Canvas(bd=0, highlightthickness=0, width=100, height=100)
         circle.create_oval(15, 15, 80, 80, fill="blue", outline="white")
         circle.place(relx=0.5, rely=0.7, anchor="center")
         num_label = Label(window, text=num, font=("Comic Sans MS", 22, "bold"), bg="blue", fg="white")

@@ -7,16 +7,16 @@ import tkinter
 import tkinter.messagebox
 
 class Member_table:
-    def mount(window: Tk, res: str = "560x400"):
+    def mount(window: Tk, res: str = "560x400", name: str = "user"):
         w, h = res.split("x")
-        last_modified = os.path.getmtime("./db/matrix.json")
+        last_modified = os.path.getmtime("./client/database/matrix.json")
         while True:
-            current_modified = os.path.getmtime("./db/matrix.json")
+            current_modified = os.path.getmtime("./client/database/matrix.json")
             if current_modified != last_modified:
                 break
             time.sleep(0.7)
         
-        matrix_json = open("./db/matrix.json")
+        matrix_json = open("./client/database/matrix.json")
         matrix: list[list[int]] = loads(matrix_json.read())
         matrix_json.close()
         length = len(matrix)
@@ -53,6 +53,13 @@ class Member_table:
 
                     if j == 5 or k["0"] == 5 or k["1"] == 5 or k["2"] == 5 or k["3"] == 5 or k["4"] == 5:
                         print("GANHOU!")
+                        status = open("./client/database/status.json", "w")
+                        a = {
+                            "name": name,
+                            "winner": True,
+                        }  
+                        status.write(dumps(a))
+                        status.close()
                         tkinter.messagebox.showinfo("Parabéns!", "Você ganhou o bingo!")    
                         break
             else:
@@ -68,8 +75,6 @@ class Member_table:
             column=x
             for y in range(length):
                 item = Label(window, text=matrix[x][y], relief="solid",width=4, pady=5, name=f"{y}:{x}",font=("Comic Sans MS", 30), bg="gray", fg="white")
-                item.bind("<Button-1>", mark_callback)
-                item.grid(row=y+2, column=column+2, padx=14, pady=1)
+                item.bind("<Button-1>", mark_callback)      
+                item.grid(row=y+2, column=column+2, padx=14, pady=5 )
             
-        text = Label(window, text="Ultimo número sorteado: ", font=("Comic Sans MS", 12))
-        text.place(x=17, y=450)

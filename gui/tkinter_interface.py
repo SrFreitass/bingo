@@ -2,8 +2,8 @@ import tkinter as tk
 import threading
 from server.app import Socket_server
 from client.app import Socket_client
-from gui.p_login import Login
-from tkinter import *
+from gui.menu import Login
+from customtkinter import *
 
 
 class Window():
@@ -16,9 +16,9 @@ class Window():
         pass
 
     def execute(self):
-        window = Tk()
+        window = CTk()
         
-        window.title(self.name)
+        window.title(self.name) 
         window.geometry(self.res)
         window.resizable(False, False)
 

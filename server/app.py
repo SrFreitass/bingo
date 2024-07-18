@@ -32,11 +32,11 @@ class Socket_server:
             clients.append([con, user_table])
             con.send(dumps(user_table).encode())
 
-            thread = threading.Thread(target=receiveMessage, args=[con, clients])
+            thread = threading.Thread(target=receiveMessage, args=[con, len(clients)-1, clients])
             thread.start()
 
 
-def receiveMessage(client, clients):
+def receiveMessage(client, index, clients):
     while True:
         try:
             msg = client.recv(2048)
@@ -47,13 +47,17 @@ def receiveMessage(client, clients):
                 if type(msg_json) == "dict" and msg_json.get("win"):
                     print(msg_json.get("name"))
                     print("GANHOU!")
+
+                for c in clients:
+                    c[0].send(msg)
+                print(client, msg)
+            
             except:
+                clients.pop(index)
+                client.close()
                 print("LOG: OCORREU UM ERRO")
     
-            for c in clients:
-                c[0].send(msg)
-            print(client, msg)
         except:
+            clients.pop(index)
             client.close()
-    client.close()
 

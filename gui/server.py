@@ -1,18 +1,21 @@
-from tkinter import *
 import threading
 from server.app import Socket_server
 from gui.server_bingo import Server_bingo
 import socket
-import gui.p_login
+import gui.menu
+import tkinter.messagebox
+import gui.menu
+from customtkinter import *
+import customtkinter    
 
 class Server:
-    def mount(window: Tk,  res: str = "560x400"):
+    def mount(window: CTk,  res: str = "560x400"):
         w, h = res.split("x")
 
         hostname = socket.gethostbyname(socket.gethostname())
 
-        text = Label(window, text="URL do servidor:", font=("Arial", 18), fg="white", bg="#d98900")
-        url =  Label(window, text=hostname,  font=("Arial", 18), fg="white", bg="#d98900")
+        text = CTkLabel(window, text="URL do servidor:", font=("", 20))
+        url =  CTkLabel(window, text=hostname, font=("", 20, "bold"))
         text.place(relx=.5, rely=.55, anchor="center")
         url.place(relx=.5, rely=.64, anchor="center")
         
@@ -32,10 +35,10 @@ class Server:
             for x in components:
                 x.destroy()
     
-            gui.p_login.Login.mount(window)
+            gui.menu.Login.mount(window)
 
-        bt = Button(window, text="Iniciar", font=("Arial", 18), command=lambda: initialize(f"{hostname}:8080", [bt]), bg="#ffb12b")
+        bt = CTkButton(window, text="Iniciar", font=("Arial", 18), command=lambda: initialize(f"{hostname}:8080", [bt]))
         bt.place(relx=.5, rely=.75, anchor="center")
         
-        bt_back = Button(window, width=12, text="< Voltar >", font= ("Arial", 18), command=lambda: back([text, url, bt, bt_back]))
+        bt_back = CTkButton(window, width=12, text="Voltar", command=lambda: back([text, url, bt, bt_back]))
         bt_back.place(relx=0.5, rely=0.89, anchor=CENTER)

@@ -1,16 +1,16 @@
-from tkinter import *
 import threading
 from client.app import Socket_client
 from gui.admin_bingo import Admin_bingo
-import gui.p_login
+import gui.menu
+from customtkinter import *
 
 
 class Staff_page():
-    def mount(window: Tk, res: str = "560x400"):
+    def mount(window: CTk, res: str = "560x400"):
         w, h = res.split("x")
-        text = Label(window, text="Insira a URL do servidor", font=("Arial", 18), fg="white", bg="#d98900")
-        text.place(relx=0.5, rely=0.54, anchor=CENTER)
-        server_url = Entry(window, width=40)
+        code = CTkEntry(window, width=350, placeholder_text="Insira o código de organizador ")
+        code.place(relx=0.5, rely=0.54, anchor=CENTER)
+        server_url = CTkEntry(window, width=350, placeholder_text="Insira a url do servidor")
         server_url.place(relx=0.5, rely=0.62, anchor=CENTER)
 
         def initialize(addr: str, components: list):
@@ -30,10 +30,10 @@ class Staff_page():
             for x in components:
                 x.destroy()
 
-            gui.p_login.Login.mount(window)
+            gui.menu.Login.mount(window)
 
-        bt = Button(window, text="Iniciar", font=("Arial", 18), width=12, command=lambda: initialize(server_url.get(), [bt, server_url, text]), bg="#ffb12b")
+        bt = CTkButton(window, text="Entrar", font=("Arial", 18), command=lambda: initialize(server_url.get(), [bt, server_url, code, bt_back]))
         bt.place(relx=0.5, rely=0.72, anchor=CENTER)
 
-        bt_back = Button(window, width=12, text="< Voltar >", font= ("Arial", 18), command=lambda: back([text, bt, bt_back]))
+        bt_back = CTkButton(window, text="Voltar", font= ("Arial", 20), command=lambda: back([code, server_url, bt, bt_back]))
         bt_back.place(relx=0.5, rely=0.89, anchor=CENTER)

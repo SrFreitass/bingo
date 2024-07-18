@@ -2,6 +2,7 @@ import socket
 import tkinter as tk
 from tkinter import *
 from json import *
+import time
 import tkinter.messagebox
 
 class Socket_member:
@@ -18,7 +19,8 @@ class Socket_member:
                 try:
                     msg = client_socket.recv(2048).decode()
                     if not wrote:
-                        local_db = open("db/matrix.json", "w")
+                        time.sleep(1)
+                        local_db = open("./client/database/matrix.json", "w")
                         local_db.write(msg)
                         local_db.close()
                         wrote = True
@@ -30,6 +32,16 @@ class Socket_member:
                             draw_numbers_w = open("./client/database/draw_numbers.json", "w")
                             draw_numbers_w.write(msg)
                             draw_numbers_w.close()
+
+                        status_json = open("./client/database/status.json")
+                        status = load(status_json)
+
+                        if status["winner"]:    
+                            client_socket.send(status_json.read().encode())
+
+                        status_json.close()
+                        
+
                         draw_numbers_json.close()
                 except KeyError:
                     print(KeyError, "err")
