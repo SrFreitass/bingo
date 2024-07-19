@@ -32,16 +32,7 @@ class Socket_member:
                             draw_numbers_w = open("./client/database/draw_numbers.json", "w")
                             draw_numbers_w.write(msg)
                             draw_numbers_w.close()
-
-                        status_json = open("./client/database/status.json")
-                        status = load(status_json)
-
-                        if status["winner"]:    
-                            client_socket.send(status_json.read().encode())
-
-                        status_json.close()
                         
-
                         draw_numbers_json.close()
                 except KeyError:
                     print(KeyError, "err")

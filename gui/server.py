@@ -15,7 +15,7 @@ class Server:
         hostname = socket.gethostbyname(socket.gethostname())
 
         text = CTkLabel(window, text="URL do servidor:", font=("", 20))
-        url =  CTkLabel(window, text=hostname, font=("", 20, "bold"))
+        url =  CTkLabel(window, text=f"{hostname}:8080", font=("", 20, "bold"))
         text.place(relx=.5, rely=.55, anchor="center")
         url.place(relx=.5, rely=.64, anchor="center")
         

@@ -22,7 +22,7 @@ class Admin_bingo:
 
 
             if(len(last_nums) >= 75):
-                print("Limite")
+                print("Para que vou cagar")
                 db_w.write("[]")
                 db_w.close()
             else:
@@ -34,12 +34,12 @@ class Admin_bingo:
                 last_nums.append(num)
                 db_w.write(dumps(last_nums))
                 db_w.close()
-                circle.place(relx=0.5, rely=0.5, anchor="center")
-                num_label.place(relx=0.5, rely=0.49, anchor="center")               
+                circle.place(relx=0.5, rely=0.65, anchor="center")
+                num_label.place(relx=0.5, rely=0.64, anchor="center")               
                 
 
         text = CTkLabel(window, text="Utimo número sorteado", font=("Arial", 18))
-        text.place(relx=0.5, rely=0.3, anchor="center")
+        text.place(relx=0.5, rely=0.5, anchor="center")
 
         bt = CTkButton(window, text="Sortear", font=("Arial", 18), command=draw_numbers)
-        bt.place(relx=0.5, rely=0.7, anchor="center")
+        bt.place(relx=0.5, rely=0.86, anchor="center")

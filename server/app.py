@@ -40,14 +40,9 @@ def receiveMessage(client, index, clients):
     while True:
         try:
             msg = client.recv(2048)
-            print("MENSAGEM DOS CABAS", msg.decode())
+            print("MENSAGEM", msg.decode())
 
             try:
-                msg_json: dict | list[int] = loads(msg.decode())
-                if type(msg_json) == "dict" and msg_json.get("win"):
-                    print(msg_json.get("name"))
-                    print("GANHOU!")
-
                 for c in clients:
                     c[0].send(msg)
                 print(client, msg)

@@ -42,41 +42,30 @@ class Member_table:
             if event.widget["text"] in draw_numbers:
                 event.widget.config(bg="red")
 
-                k = {}
-                for col in matrix:
-                    j = 0
+                win = False
 
-                    for r in range(len(matrix)):
-                        if k.get(str(r)):
-                            k[str(r)]+=1
-                        else:
-                            k[str(r)]=0
-
-                    # for l in range(len(matrix)):
-                    #     if not k.get(str(l)):
-                    #         k[str(l)]=0 
-
-                    #     if col[l] == "x" or col[l] == "*":
-                    #         k[str(l)]+=1
-
-                    for item_col in col:
-                            print(item_col)
-                            if item_col == "x" or item_col == "*":
-                                j+=1
-
-                    print(k, j)
-
-                    if j == 5  or k["0"] == 5 or k["1"] == 5 or k["2"] == 5 or k["3"] == 5 or k["4"] == 5:
-                        print("GANHOU!")
-                        status = open("./client/database/status.json", "w")
-                        a = {
-                            "name": name,
-                            "winner": True,
-                        }  
-                        status.write(dumps(a))
-                        status.close()
-                        tkinter.messagebox.showinfo("Parabéns!", "Você ganhou o bingo!")    
+                for i in range(length):
+                    # Columns
+                    if matrix[i][0] == "x" and matrix[i][1] == "x" and (matrix[i][2] == "x" or matrix[i][2] == "*") and matrix[i][3] == "x" and matrix[i][4] == "x":
+                        win = True
                         break
+                
+                    # Rows
+                    if matrix[0][i] == "x" and matrix[1][i] == "x" and (matrix[2][i] == "x" or matrix[2][i] == "*") and matrix[3][i] == "x" and matrix[4][i] == "x":
+                        win = True
+                        break
+
+                # Diagonals
+                if matrix[0][0] == "x" and matrix[1][1] == "x" and (matrix[2][2] == "x" or matrix[2][2] == "*") and matrix[3][3] == "x" and matrix[4][4] == "x":
+                    win = True
+
+                if matrix[0][4] == "x" and matrix[1][3] == "x" and (matrix[2][2] == "x" or matrix[2][2] == "*") and matrix[3][1] == "x" and matrix[4][0] == "x":
+                    win = True
+                    
+                if win:
+                    print("GANHOU!")
+                    tkinter.messagebox.showinfo("Parabéns!", f"{name}, Você ganhou o bingo!")
+                
             else:
                 tkinter.messagebox.showerror("ERRO!", "Impossível marcar um número que não foi sorteado!")
 

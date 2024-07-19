@@ -8,7 +8,7 @@ from customtkinter import *
 class Staff_page():
     def mount(window: CTk, res: str = "560x400"):
         w, h = res.split("x")
-        code = CTkEntry(window, width=350, placeholder_text="Insira o código de organizador ")
+        code = CTkEntry(window, width=350, placeholder_text="Insira o código de organizador (Não precisa)")
         code.place(relx=0.5, rely=0.54, anchor=CENTER)
         server_url = CTkEntry(window, width=350, placeholder_text="Insira a url do servidor")
         server_url.place(relx=0.5, rely=0.62, anchor=CENTER)
